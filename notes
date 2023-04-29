@@ -1,0 +1,76 @@
+####################################################
+# author : Isaac D 
+#####################################################
+          passwordless authendication
+#####################################################
+# install ansible in aws ec2
+# create 2 ec2 minimum eg ansible-main, ansible-target
+# update both 
+# in ansible-main type ssh-keygen
+# enter->enter->enter
+#  type cat /home/ubuntu/.ssh/id_rsa.pub
+# copy the text
+# in ansible-target type ssh-keygen
+# cd  /home/ubuntu/.ssh/
+# vi authorized_keys
+# type i and paste the ssh key which is copied 
+# esc -> :wq! -> enter
+### now we can connect both ec2 with ssh 
+# in type shh <private ip ansible-target> --> enter
+### passwordless authendication -> done 
+####################################################
+         install ansible in ansible-main
+####################################################
+# sudo apt install ansible (yum for redhat/cent os)
+####################################################
+                ansible inventory
+####################################################
+### file which stores the ip address of target server and other config
+### default file will be in /etc/ansible/host
+### but we creating in the working folder
+# vi inventory -> copy and paste private ip of ansible-target
+# esc -> :wq! -> enter
+####################################################
+                  ansible adhoc command
+####################################################
+### to run simple commands instead of playbooks
+#eg. ansible -i <inventory-file-path>  <ip of target/ name of group/ all>  -m(module) "shell" -a(argument) "command"
+# eg. ansible -i inventory all -m "shell" -a "touch file1"
+## file1 will be created in ansible-target
+####################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_
