@@ -29,25 +29,84 @@
 ### default file will be in /etc/ansible/host
 ### but we creating in the working folder
 # vi inventory -> copy and paste private ip of ansible-target
+# eg. 172.31.62.28
+# we can also gruop servers by inventory
+# ##### vi inventory
+# [dbservers]
+#  172.31.62.28
+#  172.31.62.29
+# [webservers]
+#  172.31.63.30
+#  172.31.63.31
 # esc -> :wq! -> enter
+#######
+## we can perticular task for perticular group
+# eg create index.html for web servers
+# ansible -i inventory webservers -m "shell" -a "touch file1"
 ####################################################
                   ansible adhoc command
-####################################################
+#############################################################################################################
 ### to run simple commands instead of playbooks
-#eg. ansible -i <inventory-file-path>  <ip of target/ name of group/ all>  -m(module) "shell" -a(argument) "command"
-# eg. ansible -i inventory all -m "shell" -a "touch file1"
+#eg. ansible -i <inventory-file-path>  <ip of target/ name of group/ all>  -m "module" -a(argument) "command"
+# eg. ansible -i inventory all -m "shell" -a "touch index.html"
 ## file1 will be created in ansible-target
+## we can find more about module and arguments in ansible documentations
+############################################################################################################
+                ansible playbook
 ####################################################
-
-
-
-
-
-
-
-
-
-
+### run multiple task
+# eg. install nginx and start nginx
+##### vim first-playbooks.yml
+# --- (to indicate it as yaml)
+# - name: install and start nginx (name) 
+#   hosts: all (list of groups or group of servers rg. webservers
+#   became: root ( act as normal user or root user)
+#
+#   tasks:
+#    - name: install nginx
+#      apt:               | 
+#        name: nginx      | - or shell: apt install nginx
+#        state: present   |
+#    - name: start nginx
+#      service:           | 
+#        name: nginx      | - or shell: systerctl start nginx
+#        state: started   |
+## if we want to add another playbook we can use -  
+# eg 
+# - name: second-playbook
+# esc -> :wq! -> enter
+# #####
+## to run playbook 
+# ansible-playbook -i inventory first-playbooks.yml (name of playbook)
+### we can use -v ot -vv for verbose which is debugging 
+### we can able to see nginx runnning the servers
+#################################################################################################
+                                       ansible roles
+#################################################################################################
+### efficient way of writing ansible playbook that will only improve your efficiency to write complex playbooks
+## ex. create role for kubernites as it has lot of tasks
+## we will be creating new folder
+# mkdir roles
+# type ansible-galaxy role init kubernetes
+### we can able to see kubernetes folder 
+# cd kubernetes
+# ls -ltr
+## we can able to see multiple folders
+# as:
+# meta - can provide meta data.licence etc
+# default - store some variable kind of things
+# test - for unit testing 
+# handlers - to handle some expectations eg erros : send notification or delete nginx when fail to start
+# tast - works to be done
+# readme - as about and instruction
+# files - to store some certificate or copy files to another machine
+# templetes - to store templetes
+# 
+# 
+# 
+# 
+# 
+# 
 
 
 
